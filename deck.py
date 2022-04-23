@@ -11,6 +11,8 @@ class Deck:
         self.count_cards = 52
         self.deck_cards = list(itertools.product(RANKS, SUITS))
 
+    def __str__(self):
+        return f'Сейчас в колоде {self.count_cards} карт'
 #
 # if __name__ == '__main__':
 #     deck = Deck()
