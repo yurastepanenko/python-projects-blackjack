@@ -1,3 +1,6 @@
+MAX_COUNT_BOTS = 4
+BOT_MONEY = 30
+
 MAIN_MENU_LIST = {
     1: "Начать новую Игру",
     2: "Статистика игр",
@@ -12,4 +15,17 @@ GAME_MSG = {
     'name': '\n Введите ваше Имя ',
     'money': '\nСколько денег выделяете на игру ',
     'min_money': '\nМинимальная ставка = 5. Ваша сумма не может быть меньше 5',
+    'cnt_bots': '\nСколько ботов создать?',
+    'err_cnt_bots': '\nКоличество ботов может быть от 0 до 4 включительно',
 }
+
+BOT_NAMES = ['Burker', 'Naedr', 'Fleta', 'Cinet', 'Quenevit', 'Vail', 'Nica',
+             'Hadosa', 'Llahel', 'Poppyaak', 'Blita', 'Lpida', 'Jaim', 'Kitra',
+             'Talin', 'Iantai', 'Birchare', 'Visol', 'Eyalamo', 'Bridani']
+
+
+
+
+
+
+
