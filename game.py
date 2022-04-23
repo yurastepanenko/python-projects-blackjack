@@ -8,6 +8,10 @@ from termcolor import colored, cprint
 
 class Game:
     def __int__(self):
+        count_players = 1
+        players = []
+        # создаем экземпляр класса Игры
+        game = Game()
         return Game()
 
     def new_deck(self):
@@ -36,6 +40,7 @@ class Game:
     def create_human_player(self, user_name, user_money):
         '''создаем нового игрока'''
         player = hp.Human_player(user_name, user_money)
+        # Game.players.append(player)
         print(player)
         return player
 
@@ -51,11 +56,12 @@ class Game:
         if int(count_bots) == 0:
             return
         for _ in range(int(count_bots)):
-            ## TODO Генерация имени, список игроков для класса игра
+            ## TODO список игроков для класса игра
             bot_name = random.choice(c.BOT_NAMES)
             c.BOT_NAMES.remove(bot_name)
             bot = bp.Bot_player(bot_name, c.BOT_MONEY)
             print(bot)
+            #Game.players.append(bot)
 
     def main_menu(self):
         '''Главное меню программы'''
@@ -70,6 +76,8 @@ class Game:
                 user_name, user_money = Game.get_gamer_info(self)
                 Game.create_human_player(self, user_name, user_money)
                 Game.create_bots_player(self)
+                # print(game.players)
+
 
 
 
