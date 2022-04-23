@@ -1,5 +1,6 @@
 import constants as c
 import deck as d
+import human_player as hp
 from termcolor import colored, cprint
 
 
@@ -16,6 +17,7 @@ class Game:
         return deck
 
     def get_gamer_info(self):
+        '''Считываем информацию об игроке'''
         while True:
             user_name = input(c.GAME_MSG['name'])
             if user_name:
@@ -27,8 +29,15 @@ class Game:
                     break
                 else:
                     cprint(c.GAME_MSG['min_money'], 'yellow')
+        return user_name, user_money
+
+    def create_human_player(self, user_name, user_money):
+        player = hp.Human_player(user_name, user_money)
+        print(player)
+        return player
 
     def main_menu(self):
+        '''Главное меню программы'''
         while True:
             for key in c.MAIN_MENU_LIST:
                 cprint([key, c.MAIN_MENU_LIST[key]], 'magenta')
@@ -37,6 +46,7 @@ class Game:
                 break
             if actions == '1':
                 deck = Game.new_deck(self)
-                Game.get_gamer_info(self)
+                user_name, user_money = Game.get_gamer_info(self)
+                Game.create_human_player(self, user_name, user_money)
                 #print(deck)
 
