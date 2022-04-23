@@ -9,7 +9,7 @@ class Game:
     def main_menu(self):
         while True:
             for key in constants.MAIN_MENU_LIST:
-                print(key, constants.MAIN_MENU_LIST[key])
-            actions = input('Выберите действие ')
+                cprint([key, constants.MAIN_MENU_LIST[key]], 'magenta')
+            actions = input('\n Выберите действие ')
             if actions == '0':
                 break
