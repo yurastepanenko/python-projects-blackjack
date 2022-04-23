@@ -4,11 +4,11 @@ import itertools
 
 class Card:
     def __init__(self):
-        suit = None
-        points = None
-        picture = None
-        name = None
-        deck_position = None
+        self.suit = None
+        self.points = None
+        self.picture = None
+        self.name = None
+        self.deck_position = None
 
 
 if __name__ == '__main__':
