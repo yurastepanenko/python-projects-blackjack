@@ -4,15 +4,17 @@ import human_player as hp
 import bot_player as bp
 import random
 from termcolor import colored, cprint
+import main as m
 
 
 class Game:
+    players = []
+    count_players = 1
     def __int__(self):
-        count_players = 1
-        players = []
         # создаем экземпляр класса Игры
         game = Game()
         return Game()
+        # return game
 
     def new_deck(self):
         '''Создаем колоду'''
@@ -40,8 +42,7 @@ class Game:
     def create_human_player(self, user_name, user_money):
         '''создаем нового игрока'''
         player = hp.Human_player(user_name, user_money)
-        # Game.players.append(player)
-        print(player)
+        Game.players.append(player)
         return player
 
     def create_bots_player(self):
@@ -56,12 +57,12 @@ class Game:
         if int(count_bots) == 0:
             return
         for _ in range(int(count_bots)):
-            ## TODO список игроков для класса игра
             bot_name = random.choice(c.BOT_NAMES)
             c.BOT_NAMES.remove(bot_name)
             bot = bp.Bot_player(bot_name, c.BOT_MONEY)
             print(bot)
-            #Game.players.append(bot)
+            Game.players.append(bot)
+            Game.count_players += 1
 
     def main_menu(self):
         '''Главное меню программы'''
@@ -76,7 +77,8 @@ class Game:
                 user_name, user_money = Game.get_gamer_info(self)
                 Game.create_human_player(self, user_name, user_money)
                 Game.create_bots_player(self)
-                # print(game.players)
+                # print(Game.count_players)
+                # print(Game.players)
 
 
 

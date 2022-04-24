@@ -8,3 +8,6 @@ class Gamer:
 
     def __str__(self):
         return f'Игрока зовут {self.name}. У него {self.money} денег!'
+
+    def __repr__(self):
+        return f'Игрока зовут {self.name}. У него {self.money} денег!(R)'
