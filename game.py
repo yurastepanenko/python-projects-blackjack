@@ -100,31 +100,44 @@ class Game:
                         cprint(f'Ставка не может превышать ваш баланс' \
                                f' = {player.get_balance()}', 'red')
         else:
-            bet = random.randint(5, 20)
-            player.set_balance(-int(bet))
-            player.bet = int(bet)
+            while True:
+                bet = random.randint(5, 20)
+                if bet <= player.get_balance():
+                    player.set_balance(-int(bet))
+                    player.bet = int(bet)
+                    break
         cprint(f'Игрок {player} сделал ставку {bet}', 'magenta')
 
     def check_result(self, dealer):
         """Проверка результатов игры"""
         for _ in Game.players:
-            if _.get_balance() < 5:
-                return 'game_over'
             if _ == dealer:
                 continue
             elif (_.points > dealer.points) & (_.points <= 21):
                 _.set_balance(int(_.bet)*2)
-                print(f'Выиграл ставку {_.name}= {int(_.bet)*2}')
+                print(f'Выиграл ставку {_.name}= {int(_.bet)*2} ,'
+                      f'баланс = {_.get_balance()}')
             elif (_.points < dealer.points) & (dealer.points > 21):
                 _.set_balance(int(_.bet)*2)
-                print(f'Выиграл ставку {_.name} = {int(_.bet)*2}')
+                print(f'Выиграл ставку {_.name} = {int(_.bet)*2} ,'
+                      f'баланс = {_.get_balance()}')
             elif (_.points < dealer.points) & (dealer.points <= 21):
                 dealer.set_balance(int(_.bet)*2)
-                print(f'Выиграл ставку Дилер = {int(_.bet) * 2}')
+                print(f'Выиграл ставку Дилер = {int(_.bet) * 2}  ,'
+                      f'баланс = {_.get_balance()}')
             elif _.points == dealer.points:
                 dealer.set_balance(int(_.bet))
                 _.set_balance(int(_.bet))
-                print(f'Ничья, все забирают свои ставки = {int(_.bet)}')
+                print(f'Ничья, {_.name} забирает свою ставку = {int(_.bet)} ,'
+                      f'баланс = {_.get_balance()}')
+
+            if _.get_balance() < 5:
+                Game.players.remove(_)
+                game_over = f'{_.name} Проиграл. Закончились деньги!'
+                cprint(game_over, 'red')
+
+        cprint(f"=========Закончилась {Game.iterations} раздача========")
+
 
     def main_menu(self):
         """Главное меню программы"""

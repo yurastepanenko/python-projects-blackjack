@@ -1,5 +1,5 @@
 MAX_COUNT_BOTS = 4
-BOT_MONEY = 30
+BOT_MONEY = 10
 DEALER_SUM = 1000000
 # Константы для добора карт
 BOT_MIN_POINTS = 16
