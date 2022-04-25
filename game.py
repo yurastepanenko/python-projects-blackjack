@@ -82,6 +82,7 @@ class Game:
             print(player)
 
     def get_bet(self, player):
+        """Прием ставок"""
         if hasattr(player, 'type'):
             while True:
                 bet = input(c.GAME_MSG['bet'])
@@ -96,9 +97,9 @@ class Game:
 
     def check_result(self):
         """Проверка результатов игры"""
-        pass
-
-
+        for _ in Game.players:
+            if _.get_balance() < 5:
+                return 'game_over'
 
     def main_menu(self):
         """Главное меню программы"""
@@ -161,7 +162,11 @@ class Game:
                     dealer.points += point
                     #print(dealer)
 
-                    Game.check_result(self)
+                    # Проверка результатов игры
+                    res = Game.check_result(self)
+                    if res == 'game_over':
+                        cprint(c.GAME_MSG['game_over'], 'red')
+                        break
 
                     chose = input('Продолжаем игру? ')
                     if chose == '0':
