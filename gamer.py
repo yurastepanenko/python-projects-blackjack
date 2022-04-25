@@ -19,7 +19,7 @@ class Gamer:
                f'Сумма карт = {self.points}\n'
 
     def get_balance(self):
-        return self.__money
+        return int(self.__money)
 
     def set_balance(self, money):
         self.__money = int(self.__money) + int(money)

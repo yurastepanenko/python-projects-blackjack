@@ -19,7 +19,6 @@ class Game:
         """Создаем колоду"""
         deck = d.Deck()
         deck.prepare_deck()
-        #print(deck.deck_cards[37], deck.deck_cards[39])
         return deck
 
     def get_gamer_info(self):
@@ -63,6 +62,7 @@ class Game:
             Game.count_players += 1
 
     def play_turn(self, deck, player):
+        """Процесс игры, взятие карт игроком"""
         while True:
             if player.points > 21:
                 cprint(c.GAME_MSG['loos'], 'red')
@@ -87,9 +87,12 @@ class Game:
             while True:
                 bet = input(c.GAME_MSG['bet'])
                 if bet.isdigit():
-                    if int(bet) >= 5:
+                    if (int(bet) >= 5) & (int(bet) <= player.get_balance()):
                         player.set_balance(-int(bet))
                         break
+                    elif (int(bet) >= 5) & (int(bet) > player.get_balance()):
+                        cprint(f'Ставка не может превышать ваш баланс' \
+                               f' = {player.get_balance()}', 'red')
         else:
             bet = random.randint(5, 20)
             player.set_balance(-int(bet))
