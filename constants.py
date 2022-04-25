@@ -22,7 +22,7 @@ GAME_MSG = {
     'loos': '\n У вас перебор, вы проиграли раздачу',
     'stop': '\n У вас 21, больше карт вам не надо))',
     'bet': '\n Какую ставку вы делаете? ',
-    'get_bet': 'Игрок {player} сделал ставку {bet}'
+
 }
 
 BOT_NAMES = ['Burker', 'Naedr', 'Fleta', 'Cinet', 'Quenevit', 'Vail', 'Nica',

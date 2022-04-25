@@ -91,7 +91,12 @@ class Game:
                         break
         else:
             bet = random.randint(5, 20)
-        cprint(c.GAME_MSG['get_bet'], 'magenta')
+            player.set_balance(-int(bet))
+        cprint(f'Игрок {player} сделал ставку {bet}', 'magenta')
+
+    def chec_result(self):
+        """Проверка результатов игры"""
+        pass
 
 
 
@@ -105,6 +110,7 @@ class Game:
             if actions == '0':
                 break
             if actions == '1':
+
                 cprint(c.GAME_MSG['new_game'], 'magenta')
                 # Создали колоду
                 deck = Game.new_deck(self)
@@ -117,35 +123,44 @@ class Game:
                 Game.create_bots_player(self)
                 dealer = dealer_player.Dealer_player('Dealer', 1000000)
 
-
+                while True:
                 # Сдаем карты игрокам
-                for _ in Game.players:
-                    #Делаем ставки
-                    Game.get_bet(self, _)
+                    for _ in Game.players:
+                        # Обнуляем карты и очки перед раздачей
+                        _.cards = []
+                        _.points = 0
 
+                        # Делаем ставки
+                        Game.get_bet(self, _)
+
+                        temp_card, point = deck.turn_cards()
+                        _.cards.append(temp_card)
+                        _.points += point
+                        temp_card, point = deck.turn_cards()
+                        _.cards.append(temp_card)
+                        _.points += point
+                        print(_)
+                        if hasattr(_, 'type'):
+                            Game.play_turn(self, deck, _)
+
+
+                    # Сдаем 1 карту Дилеру
+                    Game.players.append(dealer)
                     temp_card, point = deck.turn_cards()
-                    _.cards.append(temp_card)
-                    _.points += point
-                    temp_card, point = deck.turn_cards()
-                    _.cards.append(temp_card)
-                    _.points += point
-                    print(_)
-                    if hasattr(_, 'type'):
-                        Game.play_turn(self, deck, _)
+                    dealer.cards.append(temp_card)
+                    dealer.points += point
+                    print(dealer)
 
+                    Game.chec_result(self)
 
-                # Сдаем 1 карту Дилеру
-                Game.players.append(dealer)
-                temp_card, point = deck.turn_cards()
-                dealer.cards.append(temp_card)
-                dealer.points += point
-                print(dealer)
-
-                # Опрос пользователя после раздачи карт
-                # print(Game.players)
-                # print(Game.players['h'])
-                # if hasattr(_, type):
-                #     Game.play_turn(self, deck)
+                    chose = input('Продолжаем игру? ')
+                    if chose == '0':
+                        break
+                    # Опрос пользователя после раздачи карт
+                    # print(Game.players)
+                    # print(Game.players['h'])
+                    # if hasattr(_, type):
+                    #     Game.play_turn(self, deck)
 
 
 
