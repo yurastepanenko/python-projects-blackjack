@@ -7,10 +7,11 @@ import random
 from termcolor import colored, cprint
 
 
-
 class Game:
     players = []
     count_players = 1
+    iterations = 0
+
     def __int__(self):
         game = Game()
         return Game()
@@ -47,7 +48,8 @@ class Game:
         while True:
             count_bots = input(c.GAME_MSG['cnt_bots'])
             if count_bots.isdigit():
-                if ((int(count_bots) >= 0) & (int(count_bots) <= c.MAX_COUNT_BOTS)):
+                if ((int(count_bots) >= 0) & (
+                        int(count_bots) <= c.MAX_COUNT_BOTS)):
                     break
             cprint(c.GAME_MSG['err_cnt_bots'], 'red')
 
@@ -128,7 +130,9 @@ class Game:
                 dealer = dealer_player.Dealer_player('Dealer', c.DEALER_SUM)
 
                 while True:
-                # Сдаем карты игрокам
+                    Game.iterations += 1
+                    cprint(f"==============={Game.iterations} раздача========")
+                    # Сдаем карты игрокам
 
                     # Сдаем 1 карту Дилеру
                     dealer.cards = []
@@ -157,13 +161,12 @@ class Game:
                         if hasattr(_, 'type'):
                             Game.play_turn(self, deck, _)
 
-
                     # Сдаем 1 карту Дилеру
                     Game.players.append(dealer)
                     temp_card, point = deck.turn_cards()
                     dealer.cards.append(temp_card)
                     dealer.points += point
-                    #print(dealer)
+                    # print(dealer)
 
                     # Проверка результатов игры
                     res = Game.check_result(self)
@@ -179,8 +182,3 @@ class Game:
                     # print(Game.players['h'])
                     # if hasattr(_, type):
                     #     Game.play_turn(self, deck)
-
-
-
-
-
