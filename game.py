@@ -114,8 +114,11 @@ class Game:
                 continue
             elif (_.points > dealer.points) & (_.points <= 21):
                 _.set_balance(int(_.bet)*2)
-                print(f'Выиграл ставку игрок = {int(_.bet)*2}')
-            elif _.points < dealer.points & (dealer.points <= 21):
+                print(f'Выиграл ставку {_.name}= {int(_.bet)*2}')
+            elif (_.points < dealer.points) & (dealer.points > 21):
+                _.set_balance(int(_.bet)*2)
+                print(f'Выиграл ставку {_.name} = {int(_.bet)*2}')
+            elif (_.points < dealer.points) & (dealer.points <= 21):
                 dealer.set_balance(int(_.bet)*2)
                 print(f'Выиграл ставку Дилер = {int(_.bet) * 2}')
             elif _.points == dealer.points:
@@ -181,9 +184,10 @@ class Game:
 
                     # Сдаем 1 карту Дилеру
                     # Game.players.append(dealer)
-                    temp_card, point = deck.turn_cards()
-                    dealer.cards.append(temp_card)
-                    dealer.points += point
+                    # temp_card, point = deck.turn_cards()
+                    dealer.card_draw(deck)
+                    # dealer.cards.append(temp_card)
+                    # dealer.points += point
                     # print(dealer)
 
                     # Проверка результатов игры
@@ -192,6 +196,6 @@ class Game:
                         cprint(c.GAME_MSG['game_over'], 'red')
                         break
 
-                    chose = input('Продолжаем игру? ')
+                    chose = input('Продолжаем игру? 0 - нет ')
                     if chose == '0':
                         break
