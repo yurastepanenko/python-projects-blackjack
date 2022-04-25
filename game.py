@@ -94,7 +94,7 @@ class Game:
             player.set_balance(-int(bet))
         cprint(f'Игрок {player} сделал ставку {bet}', 'magenta')
 
-    def chec_result(self):
+    def check_result(self):
         """Проверка результатов игры"""
         pass
 
@@ -125,6 +125,16 @@ class Game:
 
                 while True:
                 # Сдаем карты игрокам
+
+                    # Сдаем 1 карту Дилеру
+                    dealer.cards = []
+                    dealer.points = 0
+                    Game.players.append(dealer)
+                    temp_card, point = deck.turn_cards()
+                    dealer.cards.append(temp_card)
+                    dealer.points += point
+                    print(dealer)
+
                     for _ in Game.players:
                         # Обнуляем карты и очки перед раздачей
                         _.cards = []
@@ -149,9 +159,9 @@ class Game:
                     temp_card, point = deck.turn_cards()
                     dealer.cards.append(temp_card)
                     dealer.points += point
-                    print(dealer)
+                    #print(dealer)
 
-                    Game.chec_result(self)
+                    Game.check_result(self)
 
                     chose = input('Продолжаем игру? ')
                     if chose == '0':
