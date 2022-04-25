@@ -62,6 +62,38 @@ class Game:
             Game.players.append(bot)
             Game.count_players += 1
 
+    def play_turn(self, deck, player):
+        while True:
+            if player.points > 21:
+                cprint(c.GAME_MSG['loos'], 'red')
+                print(player)
+                break
+            elif player.points == 21:
+                cprint(c.GAME_MSG['stop'], 'yellow')
+                break
+            cprint(c.GAME_MSG['new_card'], 'magenta')
+            actions = input('\n Выберите действие ')
+            if actions == '0':
+                break
+            elif actions == '1':
+                temp_card, point = deck.turn_cards()
+                player.cards.append(temp_card)
+                player.points += point
+            print(player)
+
+    def get_bet(self, player):
+        if hasattr(player, 'type'):
+            while True:
+                bet = input(c.GAME_MSG['bet'])
+                if bet.isdigit():
+                    if int(bet) >= 5:
+                        player.set_balance(-int(bet))
+                        break
+        else:
+            bet = random.randint(5, 20)
+        cprint(c.GAME_MSG['get_bet'], 'magenta')
+
+
 
     def main_menu(self):
         """Главное меню программы"""
@@ -85,25 +117,35 @@ class Game:
                 Game.create_bots_player(self)
                 dealer = dealer_player.Dealer_player('Dealer', 1000000)
 
+
                 # Сдаем карты игрокам
                 for _ in Game.players:
+                    #Делаем ставки
+                    Game.get_bet(self, _)
+
                     temp_card, point = deck.turn_cards()
                     _.cards.append(temp_card)
                     _.points += point
                     temp_card, point = deck.turn_cards()
                     _.cards.append(temp_card)
                     _.points += point
+                    print(_)
+                    if hasattr(_, 'type'):
+                        Game.play_turn(self, deck, _)
 
 
+                # Сдаем 1 карту Дилеру
                 Game.players.append(dealer)
                 temp_card, point = deck.turn_cards()
                 dealer.cards.append(temp_card)
                 dealer.points += point
-                print(_)
                 print(dealer)
-                print(deck)
-                # turn_cards_players(self)
 
+                # Опрос пользователя после раздачи карт
+                # print(Game.players)
+                # print(Game.players['h'])
+                # if hasattr(_, type):
+                #     Game.play_turn(self, deck)
 
 
 
