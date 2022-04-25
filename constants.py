@@ -17,6 +17,7 @@ GAME_MSG = {
     'min_money': '\nМинимальная ставка = 5. Ваша сумма не может быть меньше 5',
     'cnt_bots': '\nСколько ботов создать? ',
     'err_cnt_bots': '\nКоличество ботов может быть от 0 до 4 включительно ',
+    'new_game': '\n Началась новая игра:)'
 }
 
 BOT_NAMES = ['Burker', 'Naedr', 'Fleta', 'Cinet', 'Quenevit', 'Vail', 'Nica',
