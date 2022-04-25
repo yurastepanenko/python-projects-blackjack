@@ -82,15 +82,19 @@ class Game:
                 player.cards.append(temp_card)
                 player.points += point
             print(player)
+        cprint(f'**********Игрок закончил свой ход**********', 'green')
 
-    def get_bet(self, player):
+    def get_bet(self, player, dealer):
         """Прием ставок"""
+        if player == dealer:
+            return
         if hasattr(player, 'type'):
             while True:
                 bet = input(c.GAME_MSG['bet'])
                 if bet.isdigit():
                     if (int(bet) >= 5) & (int(bet) <= player.get_balance()):
                         player.set_balance(-int(bet))
+                        player.bet = int(bet)
                         break
                     elif (int(bet) >= 5) & (int(bet) > player.get_balance()):
                         cprint(f'Ставка не может превышать ваш баланс' \
@@ -98,13 +102,26 @@ class Game:
         else:
             bet = random.randint(5, 20)
             player.set_balance(-int(bet))
+            player.bet = int(bet)
         cprint(f'Игрок {player} сделал ставку {bet}', 'magenta')
 
-    def check_result(self):
+    def check_result(self, dealer):
         """Проверка результатов игры"""
         for _ in Game.players:
             if _.get_balance() < 5:
                 return 'game_over'
+            if _ == dealer:
+                continue
+            elif (_.points > dealer.points) & (_.points <= 21):
+                _.set_balance(int(_.bet)*2)
+                print(f'Выиграл ставку игрок = {int(_.bet)*2}')
+            elif _.points < dealer.points & (dealer.points <= 21):
+                dealer.set_balance(int(_.bet)*2)
+                print(f'Выиграл ставку Дилер = {int(_.bet) * 2}')
+            elif _.points == dealer.points:
+                dealer.set_balance(int(_.bet))
+                _.set_balance(int(_.bet))
+                print(f'Ничья, все забирают свои ставки = {int(_.bet)}')
 
     def main_menu(self):
         """Главное меню программы"""
@@ -117,6 +134,7 @@ class Game:
                 break
             if actions == '1':
 
+                Game.iterations = 0
                 cprint(c.GAME_MSG['new_game'], 'magenta')
                 # Создали колоду
                 deck = Game.new_deck(self)
@@ -149,7 +167,7 @@ class Game:
                         _.points = 0
 
                         # Делаем ставки
-                        Game.get_bet(self, _)
+                        Game.get_bet(self, _, dealer)
 
                         temp_card, point = deck.turn_cards()
                         _.cards.append(temp_card)
@@ -162,14 +180,14 @@ class Game:
                             Game.play_turn(self, deck, _)
 
                     # Сдаем 1 карту Дилеру
-                    Game.players.append(dealer)
+                    # Game.players.append(dealer)
                     temp_card, point = deck.turn_cards()
                     dealer.cards.append(temp_card)
                     dealer.points += point
                     # print(dealer)
 
                     # Проверка результатов игры
-                    res = Game.check_result(self)
+                    res = Game.check_result(self, dealer)
                     if res == 'game_over':
                         cprint(c.GAME_MSG['game_over'], 'red')
                         break
@@ -177,8 +195,3 @@ class Game:
                     chose = input('Продолжаем игру? ')
                     if chose == '0':
                         break
-                    # Опрос пользователя после раздачи карт
-                    # print(Game.players)
-                    # print(Game.players['h'])
-                    # if hasattr(_, type):
-                    #     Game.play_turn(self, deck)
