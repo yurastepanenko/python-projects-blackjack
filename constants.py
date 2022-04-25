@@ -1,5 +1,6 @@
 MAX_COUNT_BOTS = 4
 BOT_MONEY = 30
+DEALER_SUM = 1000000
 
 MAIN_MENU_LIST = {
     1: "Начать новую Игру",

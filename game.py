@@ -5,7 +5,7 @@ import bot_player as bp
 import dealer_player
 import random
 from termcolor import colored, cprint
-import main as m
+
 
 
 class Game:
@@ -122,7 +122,7 @@ class Game:
 
                 # Создаем пользователей ботов + дилера
                 Game.create_bots_player(self)
-                dealer = dealer_player.Dealer_player('Dealer', 1000000)
+                dealer = dealer_player.Dealer_player('Dealer', c.DEALER_SUM)
 
                 while True:
                 # Сдаем карты игрокам
