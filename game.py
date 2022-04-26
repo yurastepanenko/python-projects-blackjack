@@ -84,9 +84,9 @@ class Game:
             print(player)
             cprint(f'**********{player.name}**********', 'green')
 
-    def get_bet(self, player, dealer):
+    def get_bet(self, player):
         """Прием ставок"""
-        if player == dealer:
+        if player.type == 'd':
             return
         if player.type == 'h':
             while True:
@@ -164,9 +164,13 @@ class Game:
             if actions == '1':
 
                 Game.iterations = 0
-                cprint(c.GAME_MSG['new_game'], 'magenta')
-
+                Game.players = []
+                Game.count_players = 1
                 deck = None
+                cprint(c.GAME_MSG['new_game'], 'magenta')
+                print(Game.players)
+
+
 
                 # Создаем пользователя человека
                 user_name, user_money = Game.get_gamer_info(self)
@@ -200,7 +204,7 @@ class Game:
                             _.points = 0
 
                         # Делаем ставки
-                        Game.get_bet(self, _, dealer)
+                        Game.get_bet(self, _)
                         _.card_draw(deck)
 
                         print(_)
