@@ -89,6 +89,13 @@ class Game:
         if player.type == 'd':
             return
         if player.type == 'h':
+            if player.get_balance() < 5:
+                Game.players.remove(player)
+                game_over = f'{player.name} Проиграл. Закончились деньги!'
+                cprint(game_over, 'red')
+
+                if player.type == 'h':
+                    return 'game_over'
             while True:
                 bet = input(c.GAME_MSG['bet'])
                 if bet.isdigit():
@@ -99,7 +106,17 @@ class Game:
                     elif (int(bet) >= 5) & (int(bet) > player.get_balance()):
                         cprint(f'Ставка не может превышать ваш баланс' \
                                f' = {player.get_balance()}', 'red')
+                    else:
+                        cprint(f'Ставка не может быть меньше 5', 'red')
+                else:
+                    cprint(f'Ставка не может быть меньше 5', 'red')
         else:
+            if player.get_balance() < 5:
+                Game.players.remove(player)
+                game_over = f'{player.name} Проиграл. Закончились деньги!'
+                cprint(game_over, 'red')
+                return
+
             while True:
                 bet = random.randint(5, 20)
                 if bet <= player.get_balance():
@@ -193,7 +210,7 @@ class Game:
                     # Сдаем 1 карту Дилеру
                     dealer.cards = []
                     dealer.points = 0
-                    Game.players.append(dealer)
+                    #Game.players.append(dealer)
                     dealer.card_draw(deck)
 
 
@@ -205,6 +222,7 @@ class Game:
 
                         # Делаем ставки
                         Game.get_bet(self, _)
+                        #print(Game.players)
                         _.card_draw(deck)
 
                         print(_)
@@ -216,6 +234,7 @@ class Game:
 
 
                     # Проверка результатов игры
+                    cprint(c.GAME_MSG['check_result'], 'magenta')
                     res = Game.check_result(self, dealer)
                     if res == 'game_over':
                         cprint(c.GAME_MSG['game_over'], 'red')
