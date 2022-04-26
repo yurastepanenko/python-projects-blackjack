@@ -6,6 +6,7 @@ class Human_player(gamer.Gamer):
     def __init__(self, name, money):
         super().__init__(name, money)
         self.type = 'h'
+        self.start_money = money
 
     def card_draw(self, deck):
         if self.type == 'h':

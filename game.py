@@ -68,7 +68,7 @@ class Game:
         while True:
             if player.points > 21:
                 cprint(c.GAME_MSG['loos'], 'red')
-                print(player)
+                #print(player)
                 break
             elif player.points == 21:
                 cprint(c.GAME_MSG['stop'], 'yellow')
@@ -88,7 +88,7 @@ class Game:
         """Прием ставок"""
         if player == dealer:
             return
-        if hasattr(player, 'type'):
+        if player.type == 'h':
             while True:
                 bet = input(c.GAME_MSG['bet'])
                 if bet.isdigit():
@@ -137,6 +137,19 @@ class Game:
                 cprint(game_over, 'red')
 
         cprint(f"=========Закончилась {Game.iterations} раздача========")
+
+    def save_statistic(self):
+        with open(c.FILE_NAME, 'a') as text_file:
+            for _ in Game.players:
+                if _.type == 'h':
+                    text_file.write(f'\nИгрок: {_.name}, за игру изменил свой '
+                        f'баланс на {_.get_balance() - int(_.start_money)}, '
+                                    f'раздач: {Game.iterations} ')
+
+    def show_statistics(self):
+        with open(c.FILE_NAME) as text_file:
+            for line in text_file:
+                print(line, end ='\n')
 
 
     def main_menu(self):
@@ -206,4 +219,8 @@ class Game:
 
                     chose = input('Продолжаем игру? 0 - нет ')
                     if chose == '0':
+                        Game.save_statistic(self)
                         break
+
+            if actions == '2':
+                Game.show_statistics(self)

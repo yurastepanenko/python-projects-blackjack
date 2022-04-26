@@ -5,6 +5,7 @@ DEALER_SUM = 1000000
 BOT_MIN_POINTS = 16
 BOT_MAX_POINTS = 20
 DEALER_MAX_POINTS = 17
+FILE_NAME = 'statistics.txt'
 
 MAIN_MENU_LIST = {
     1: "Начать новую Игру",
