@@ -18,5 +18,10 @@ class Bot_player(gamer.Gamer):
                     self.points += point
                     # print(f'карты {self.name} = {self.cards}')
                     # print(f'сумма карт {self.name} = {self.points}')
+                    # if (int(self.points) > 21):
+                    #     for card in self.cards:
+                    #         if card[0] == 'A':
+                    #             self.points -= 10
+                    #             break
                 else:
                     break

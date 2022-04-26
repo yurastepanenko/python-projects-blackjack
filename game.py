@@ -66,6 +66,11 @@ class Game:
     def play_turn(self, deck, player):
         """Процесс игры, взятие карт игроком"""
         while True:
+            # if (int(player.points) > 21):
+            #     for card in player.cards:
+            #         if card[0] == 'A':
+            #             player.points -= 10
+            #             break
             if player.points > 21:
                 cprint(c.GAME_MSG['loos'], 'red')
                 #print(player)
@@ -235,6 +240,7 @@ class Game:
 
                     # Проверка результатов игры
                     cprint(c.GAME_MSG['check_result'], 'magenta')
+                    cprint(dealer.cards, 'magenta')
                     res = Game.check_result(self, dealer)
                     if res == 'game_over':
                         cprint(c.GAME_MSG['game_over'], 'red')
