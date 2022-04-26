@@ -82,7 +82,7 @@ class Game:
                 player.cards.append(temp_card)
                 player.points += point
             print(player)
-        cprint(f'**********Игрок закончил свой ход**********', 'green')
+            cprint(f'**********{player.name}**********', 'green')
 
     def get_bet(self, player, dealer):
         """Прием ставок"""
@@ -124,7 +124,7 @@ class Game:
             elif (_.points < dealer.points) & (dealer.points <= 21):
                 dealer.set_balance(int(_.bet)*2)
                 print(f'Выиграл ставку Дилер = {int(_.bet) * 2}  ,'
-                      f'баланс = {_.get_balance()}')
+                      f'баланс = {dealer.get_balance()}')
             elif _.points == dealer.points:
                 dealer.set_balance(int(_.bet))
                 _.set_balance(int(_.bet))
@@ -152,8 +152,8 @@ class Game:
 
                 Game.iterations = 0
                 cprint(c.GAME_MSG['new_game'], 'magenta')
-                # Создали колоду
-                deck = Game.new_deck(self)
+
+                deck = None
 
                 # Создаем пользователя человека
                 user_name, user_money = Game.get_gamer_info(self)
@@ -164,6 +164,11 @@ class Game:
                 dealer = dealer_player.Dealer_player('Dealer', c.DEALER_SUM)
 
                 while True:
+                    # Создали колоду
+                    if deck is not None:
+                        deck = None
+                    deck = Game.new_deck(self)
+
                     Game.iterations += 1
                     cprint(f"==============={Game.iterations} раздача========")
                     # Сдаем карты игрокам
@@ -172,29 +177,33 @@ class Game:
                     dealer.cards = []
                     dealer.points = 0
                     Game.players.append(dealer)
-                    temp_card, point = deck.turn_cards()
-                    dealer.cards.append(temp_card)
-                    dealer.points += point
-                    print(dealer)
+                    dealer.card_draw(deck)
+                    # temp_card, point = deck.turn_cards()
+                    # dealer.cards.append(temp_card)
+                    # dealer.points += point
+                    #print(dealer)
 
                     for _ in Game.players:
                         # Обнуляем карты и очки перед раздачей
-                        _.cards = []
-                        _.points = 0
+                        if _ != dealer:
+                            _.cards = []
+                            _.points = 0
 
                         # Делаем ставки
                         Game.get_bet(self, _, dealer)
+                        _.card_draw(deck)
 
-                        temp_card, point = deck.turn_cards()
-                        _.cards.append(temp_card)
-                        _.points += point
-                        temp_card, point = deck.turn_cards()
-                        _.cards.append(temp_card)
-                        _.points += point
+
+                        # temp_card, point = deck.turn_cards()
+                        # _.cards.append(temp_card)
+                        # _.points += point
+                        # temp_card, point = deck.turn_cards()
+                        # _.cards.append(temp_card)
+                        # _.points += point
                         print(_)
-                        if hasattr(_, 'type'):
+                        if _.type == 'h':
                             Game.play_turn(self, deck, _)
-
+                        cprint(f'**********{_.name}**********', 'green')
                     # Сдаем 1 карту Дилеру
                     # Game.players.append(dealer)
                     # temp_card, point = deck.turn_cards()
