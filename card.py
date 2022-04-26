@@ -11,10 +11,5 @@ class Card:
         self.deck_position = None
 
 
-if __name__ == '__main__':
-    print(SUITS)
-    print(RANKS)
-    print(list(itertools.product(RANKS, SUITS)))
-
 
 

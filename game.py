@@ -178,10 +178,7 @@ class Game:
                     dealer.points = 0
                     Game.players.append(dealer)
                     dealer.card_draw(deck)
-                    # temp_card, point = deck.turn_cards()
-                    # dealer.cards.append(temp_card)
-                    # dealer.points += point
-                    #print(dealer)
+
 
                     for _ in Game.players:
                         # Обнуляем карты и очки перед раздачей
@@ -193,24 +190,13 @@ class Game:
                         Game.get_bet(self, _, dealer)
                         _.card_draw(deck)
 
-
-                        # temp_card, point = deck.turn_cards()
-                        # _.cards.append(temp_card)
-                        # _.points += point
-                        # temp_card, point = deck.turn_cards()
-                        # _.cards.append(temp_card)
-                        # _.points += point
                         print(_)
                         if _.type == 'h':
                             Game.play_turn(self, deck, _)
                         cprint(f'**********{_.name}**********', 'green')
                     # Сдаем 1 карту Дилеру
-                    # Game.players.append(dealer)
-                    # temp_card, point = deck.turn_cards()
                     dealer.card_draw(deck)
-                    # dealer.cards.append(temp_card)
-                    # dealer.points += point
-                    # print(dealer)
+
 
                     # Проверка результатов игры
                     res = Game.check_result(self, dealer)
