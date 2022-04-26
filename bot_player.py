@@ -16,7 +16,7 @@ class Bot_player(gamer.Gamer):
                     temp_card, point = deck.turn_cards()
                     self.cards.append(temp_card)
                     self.points += point
-                    print(f'карты {self.name} = {self.cards}')
-                    print(f'сумма карт {self.name} = {self.points}')
+                    # print(f'карты {self.name} = {self.cards}')
+                    # print(f'сумма карт {self.name} = {self.points}')
                 else:
                     break

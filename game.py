@@ -136,6 +136,9 @@ class Game:
                 game_over = f'{_.name} Проиграл. Закончились деньги!'
                 cprint(game_over, 'red')
 
+                if _.type == 'h':
+                    return 'game_over'
+
         cprint(f"=========Закончилась {Game.iterations} раздача========")
 
     def save_statistic(self):
@@ -149,7 +152,7 @@ class Game:
     def show_statistics(self):
         with open(c.FILE_NAME) as text_file:
             for line in text_file:
-                print(line, end ='\n')
+                print(line, end='\n')
 
 
     def main_menu(self):
@@ -168,9 +171,6 @@ class Game:
                 Game.count_players = 1
                 deck = None
                 cprint(c.GAME_MSG['new_game'], 'magenta')
-                print(Game.players)
-
-
 
                 # Создаем пользователя человека
                 user_name, user_money = Game.get_gamer_info(self)

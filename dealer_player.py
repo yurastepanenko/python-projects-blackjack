@@ -25,7 +25,7 @@ class Dealer_player(gamer.Gamer):
                     self.cards.append(temp_card)
                     self.points += point
                 else:
-                    print(f'карты {self.name} = {self.cards}')
-                    print(f'сумма карт {self.name} = {self.points}')
-                    print(deck)
+                    # print(f'карты {self.name} = {self.cards}')
+                    # print(f'сумма карт {self.name} = {self.points}')
+                    # print(deck)
                     break
