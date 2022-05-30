@@ -16,12 +16,16 @@ class Bot_player(Gamer.Gamer):
                     temp_card, point = deck.turn_cards()
                     self.cards.append(temp_card)
                     self.points += point
-                    # print(f'карты {self.name} = {self.cards}')
-                    # print(f'сумма карт {self.name} = {self.points}')
-                    # if (int(self.points) > 21):
-                    #     for card in self.cards:
-                    #         if card[0] == 'A':
-                    #             self.points -= 10
-                    #             break
+                    if (int(self.points) > 21):
+                        if self.count_A != 0:
+                            self.points += self.count_A * 10
+                            self.count_A = 0
+                        for card in self.cards:
+                            if card[0] == 'A' and self.points > 21:
+                                self.points -= 10
+                                self.count_A += 1
+                                print('Пересчитываем туза:)')
+                                print(self)
+                        # break
                 else:
                     break

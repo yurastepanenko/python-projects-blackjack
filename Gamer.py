@@ -8,6 +8,7 @@ class Gamer:
         self.cards = []
         self.points = 0
         self.bet = 0
+        self.count_A = 0
 
     def __str__(self):
         return f'Игрока зовут {self.name}. У него {self.__money} денег! ' \

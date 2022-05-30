@@ -1,10 +1,12 @@
 MAX_COUNT_BOTS = 4
-BOT_MONEY = 10
+BOT_MONEY = 100
 DEALER_SUM = 1000000
 # Константы для добора карт
 BOT_MIN_POINTS = 16
 BOT_MAX_POINTS = 20
 DEALER_MAX_POINTS = 17
+
+# файл хранения статистики
 FILE_NAME = 'statistics.txt'
 
 MAIN_MENU_LIST = {
@@ -12,11 +14,14 @@ MAIN_MENU_LIST = {
     2: "Статистика игр",
     0: "Выход из Игры"
 }
-
+# Масти
 SUITS = ['\u2665', '\u2666', '\u2663', '\u2660']
-#RANKS = ['2',  '10', 'J', 'A']
+
+# Для быстрого тестироваия Туза(1/11)
+# RANKS = ['2',  '10', 'J', 'A']
 RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
+# Игровые сообщения
 GAME_MSG = {
     'name': 'Введите ваше Имя ',
     'money': 'Сколько денег выделяете на игру ',
@@ -33,6 +38,7 @@ GAME_MSG = {
 
 }
 
+# Рендомные имена для ботов
 BOT_NAMES = ['Burker', 'Naedr', 'Fleta', 'Cinet', 'Quenevit', 'Vail', 'Nica',
              'Hadosa', 'Llahel', 'Poppyaak', 'Blita', 'Lpida', 'Jaim', 'Kitra',
              'Talin', 'Iantai', 'Birchare', 'Visol', 'Eyalamo', 'Bridani']

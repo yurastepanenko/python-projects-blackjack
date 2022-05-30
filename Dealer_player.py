@@ -30,7 +30,4 @@ class Dealer_player(Gamer.Gamer):
                     #             self.points -= 10
                     #             break
                 else:
-                    # print(f'карты {self.name} = {self.cards}')
-                    # print(f'сумма карт {self.name} = {self.points}')
-                    # print(deck)
                     break

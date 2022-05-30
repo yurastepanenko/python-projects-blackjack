@@ -2,8 +2,8 @@ import Game as g
 
 
 def main():
-    """This function creates an instance of the game type class, and calls
-    the game's start menu itself."""
+    """Данная функция создает экземпляр класса типа игры, и вызывает
+     стартовое меню игры."""
     game = g.Game()
     game.main_menu()
 

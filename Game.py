@@ -56,6 +56,7 @@ class Game:
         if int(count_bots) == 0:
             return
         for _ in range(int(count_bots)):
+            sleep(1)
             bot_name = random.choice(c.BOT_NAMES)
             c.BOT_NAMES.remove(bot_name)
             bot = bp.Bot_player(bot_name, c.BOT_MONEY)
@@ -66,11 +67,17 @@ class Game:
     def play_turn(self, deck, player):
         """Процесс игры, взятие карт игроком"""
         while True:
-            # if (int(player.points) > 21):
-            #     for card in player.cards:
-            #         if card[0] == 'A':
-            #             player.points -= 10
-            #             break
+            if (int(player.points) > 21):
+                if player.count_A != 0:
+                    player.points += player.count_A * 10
+                    player.count_A = 0
+                for card in player.cards:
+                    if card[0] == 'A' and player.points > 21:
+                        player.points -= 10
+                        player.count_A += 1
+                        print('Пересчитываем туза:)')
+                        print(player)
+                # break
             if player.points > 21:
                 cprint(c.GAME_MSG['loos'], 'red')
                 #print(player)
@@ -88,6 +95,7 @@ class Game:
                 player.points += point
             print(player)
             cprint(f'**********{player.name}**********', 'green')
+            sleep(1)
 
     def get_bet(self, player):
         """Прием ставок"""
@@ -98,10 +106,12 @@ class Game:
                 Game.players.remove(player)
                 game_over = f'{player.name} Проиграл. Закончились деньги!'
                 cprint(game_over, 'red')
+                sleep(1)
 
                 if player.type == 'h':
                     return 'game_over'
             while True:
+                sleep(1)
                 bet = input(c.GAME_MSG['bet'])
                 if bet.isdigit():
                     if (int(bet) >= 5) & (int(bet) <= player.get_balance()):
@@ -135,23 +145,36 @@ class Game:
         for _ in Game.players:
             if _ == dealer:
                 continue
+
             elif (_.points > dealer.points) & (_.points <= 21):
                 _.set_balance(int(_.bet)*2)
+                sleep(1)
                 print(f'Выиграл ставку {_.name}= {int(_.bet)*2} ,'
                       f'баланс = {_.get_balance()}')
+
             elif (_.points < dealer.points) & (dealer.points > 21):
                 _.set_balance(int(_.bet)*2)
+                sleep(1)
                 print(f'Выиграл ставку {_.name} = {int(_.bet)*2} ,'
                       f'баланс = {_.get_balance()}')
             elif (_.points < dealer.points) & (dealer.points <= 21):
                 dealer.set_balance(int(_.bet)*2)
-                print(f'Выиграл ставку Дилер = {int(_.bet) * 2}  ,'
+                sleep(1)
+                print(f'Выиграл ставку Дилер = {int(_.bet) * 2}  у {_.name} ,'
                       f'баланс = {dealer.get_balance()}')
-            elif _.points == dealer.points:
+
+            elif (_.points == dealer.points) & (_.points <= 21):
                 dealer.set_balance(int(_.bet))
                 _.set_balance(int(_.bet))
+                sleep(1)
                 print(f'Ничья, {_.name} забирает свою ставку = {int(_.bet)} ,'
                       f'баланс = {_.get_balance()}')
+
+            else:
+                dealer.set_balance(int(_.bet) * 2)
+                sleep(1)
+                print(f'Выиграл ставку Дилер = {int(_.bet) * 2}  ,'
+                      f'баланс = {dealer.get_balance()}')
 
             if _.get_balance() < 5:
                 Game.players.remove(_)
@@ -161,7 +184,7 @@ class Game:
                 if _.type == 'h':
                     return 'game_over'
 
-        cprint(f"=========Закончилась {Game.iterations} раздача========")
+        cprint(f"=========Закончилась {Game.iterations} раздача========\n")
 
     def save_statistic(self):
         with open(c.FILE_NAME, 'a') as text_file:
@@ -210,7 +233,7 @@ class Game:
                     deck = Game.new_deck(self)
 
                     Game.iterations += 1
-                    cprint(f"==============={Game.iterations} раздача========")
+                    cprint(f"============={Game.iterations} раздача========\n")
                     # Сдаем карты игрокам
 
                     # Сдаем 1 карту Дилеру
@@ -245,6 +268,7 @@ class Game:
                     cprint(dealer.cards, 'magenta')
                     res = Game.check_result(self, dealer)
                     if res == 'game_over':
+                        sleep(1)
                         cprint(c.GAME_MSG['game_over'], 'red')
                         break
 
