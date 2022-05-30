@@ -157,6 +157,7 @@ class Game:
                 sleep(1)
                 print(f'Выиграл ставку {_.name} = {int(_.bet)*2} ,'
                       f'баланс = {_.get_balance()}')
+
             elif (_.points < dealer.points) & (dealer.points <= 21):
                 dealer.set_balance(int(_.bet)*2)
                 sleep(1)
@@ -170,10 +171,16 @@ class Game:
                 print(f'Ничья, {_.name} забирает свою ставку = {int(_.bet)} ,'
                       f'баланс = {_.get_balance()}')
 
-            else:
+            elif (_.points == dealer.points) & (_.points > 21):
                 dealer.set_balance(int(_.bet) * 2)
                 sleep(1)
-                print(f'Выиграл ставку Дилер = {int(_.bet) * 2}  ,'
+                print(f'Выиграл ставку Дилер = {int(_.bet) * 2} у {_.name} ,'
+                      f'баланс = {dealer.get_balance()}')
+
+            elif (_.points > dealer.points) & (dealer.points <= 21):
+                dealer.set_balance(int(_.bet)*2)
+                sleep(1)
+                print(f'Выиграл ставку Дилер = {int(_.bet) * 2}  у {_.name} ,'
                       f'баланс = {dealer.get_balance()}')
 
             if _.get_balance() < 5:
@@ -184,7 +191,7 @@ class Game:
                 if _.type == 'h':
                     return 'game_over'
 
-        cprint(f"=========Закончилась {Game.iterations} раздача========\n")
+        cprint(f"=========Закончилась {Game.iterations} раздача========\n", 'yellow')
 
     def save_statistic(self):
         with open(c.FILE_NAME, 'a') as text_file:
@@ -233,7 +240,7 @@ class Game:
                     deck = Game.new_deck(self)
 
                     Game.iterations += 1
-                    cprint(f"============={Game.iterations} раздача========\n")
+                    cprint(f"============={Game.iterations} раздача========\n", 'yellow')
                     # Сдаем карты игрокам
 
                     # Сдаем 1 карту Дилеру

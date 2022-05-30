@@ -26,6 +26,5 @@ class Bot_player(Gamer.Gamer):
                                 self.count_A += 1
                                 print('Пересчитываем туза:)')
                                 print(self)
-                        # break
                 else:
                     break
