@@ -1,5 +1,5 @@
-import gamer
-import constants as c
+import Gamer
+import Constants as c
 from random import randint
 
 class Bot_player(gamer.Gamer):

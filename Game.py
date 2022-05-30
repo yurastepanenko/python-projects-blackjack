@@ -1,8 +1,8 @@
-import constants as c
-import deck as d
-import human_player as hp
-import bot_player as bp
-import dealer_player
+import Constants as c
+import Deck as d
+import Human_Player as hp
+import Bot_Player as bp
+import Dealer_player
 import random
 from termcolor import colored, cprint
 

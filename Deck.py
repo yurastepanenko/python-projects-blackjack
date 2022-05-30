@@ -1,4 +1,4 @@
-from constants import SUITS, RANKS
+from Constants import SUITS, RANKS
 import itertools
 import random
 

@@ -1,4 +1,4 @@
-import gamer
+import Gamer
 from random import randint
 
 
