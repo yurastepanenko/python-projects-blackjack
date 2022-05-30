@@ -77,10 +77,9 @@ class Game:
                         player.count_A += 1
                         print('Пересчитываем туза:)')
                         print(player)
-                # break
+
             if player.points > 21:
                 cprint(c.GAME_MSG['loos'], 'red')
-                #print(player)
                 break
             elif player.points == 21:
                 cprint(c.GAME_MSG['stop'], 'yellow')
