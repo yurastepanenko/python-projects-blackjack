@@ -2,7 +2,7 @@ import Gamer
 import Constants as c
 from random import randint
 
-class Bot_player(gamer.Gamer):
+class Bot_player(Gamer.Gamer):
     def __init__(self, name, money):
         super().__init__(name, money)
         self.type = 'b'

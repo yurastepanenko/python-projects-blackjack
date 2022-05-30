@@ -2,7 +2,7 @@ import Gamer
 from random import randint
 
 
-class Human_player(gamer.Gamer):
+class Human_player(Gamer.Gamer):
     def __init__(self, name, money):
         super().__init__(name, money)
         self.type = 'h'

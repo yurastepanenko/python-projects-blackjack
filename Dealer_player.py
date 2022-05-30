@@ -3,7 +3,7 @@ import Constants as c
 from random import randint
 
 
-class Dealer_player(gamer.Gamer):
+class Dealer_player(Gamer.Gamer):
     def __init__(self, Dealer, money):
         super().__init__(Dealer, 1000000)
         self.type = 'd'

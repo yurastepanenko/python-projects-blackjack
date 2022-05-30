@@ -4,8 +4,8 @@ import Human_Player as hp
 import Bot_Player as bp
 import Dealer_player
 import random
-from termcolor import colored, cprint
-
+from termcolor import cprint
+from time import sleep
 
 class Game:
     players = []
@@ -174,8 +174,9 @@ class Game:
     def show_statistics(self):
         with open(c.FILE_NAME) as text_file:
             for line in text_file:
+                sleep(1)
                 print(line, end='\n')
-
+            print('\n')
 
     def main_menu(self):
         """Главное меню программы"""
@@ -200,7 +201,7 @@ class Game:
 
                 # Создаем пользователей ботов + дилера
                 Game.create_bots_player(self)
-                dealer = dealer_player.Dealer_player('Dealer', c.DEALER_SUM)
+                dealer = Dealer_player.Dealer_player('Dealer', c.DEALER_SUM)
 
                 while True:
                     # Создали колоду
@@ -231,6 +232,7 @@ class Game:
                         _.card_draw(deck)
 
                         print(_)
+                        sleep(1)
                         if _.type == 'h':
                             Game.play_turn(self, deck, _)
                         cprint(f'**********{_.name}**********', 'green')
