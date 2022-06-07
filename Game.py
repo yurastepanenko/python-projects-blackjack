@@ -7,6 +7,7 @@ import random
 from termcolor import cprint
 from time import sleep
 
+
 class Game:
     players = []
     count_players = 1
@@ -67,7 +68,7 @@ class Game:
     def play_turn(self, deck, player):
         """Процесс игры, взятие карт игроком"""
         while True:
-            if (int(player.points) > 21):
+            if int(player.points) > 21:
                 if player.count_A != 0:
                     player.points += player.count_A * 10
                     player.count_A = 0
@@ -85,7 +86,7 @@ class Game:
                 cprint(c.GAME_MSG['stop'], 'yellow')
                 break
             cprint(c.GAME_MSG['new_card'], 'magenta')
-            actions = input('\n Выберите действие ')
+            actions = input('\nВыберите действие: ')
             if actions == '0':
                 break
             elif actions == '1':
@@ -137,7 +138,7 @@ class Game:
                     player.set_balance(-int(bet))
                     player.bet = int(bet)
                     break
-        cprint(f'Игрок {player} сделал ставку {bet}', 'magenta')
+        cprint(f'{player} сделал ставку {bet}', 'magenta')
 
     def check_result(self, dealer):
         """Проверка результатов игры"""
@@ -152,13 +153,13 @@ class Game:
                       f'баланс = {_.get_balance()}')
 
             elif (_.points < dealer.points) & (dealer.points > 21):
-                _.set_balance(int(_.bet)*2)
+                _.set_balance(int(_.bet) * 2)
                 sleep(1)
-                print(f'Выиграл ставку {_.name} = {int(_.bet)*2} ,'
+                print(f'Выиграл ставку {_.name} = {int(_.bet) * 2} ,'
                       f'баланс = {_.get_balance()}')
 
             elif (_.points < dealer.points) & (dealer.points <= 21):
-                dealer.set_balance(int(_.bet)*2)
+                dealer.set_balance(int(_.bet) * 2)
                 sleep(1)
                 print(f'Выиграл ставку Дилер = {int(_.bet) * 2}  у {_.name} ,'
                       f'баланс = {dealer.get_balance()}')
@@ -177,7 +178,7 @@ class Game:
                       f'баланс = {dealer.get_balance()}')
 
             elif (_.points > dealer.points) & (dealer.points <= 21):
-                dealer.set_balance(int(_.bet)*2)
+                dealer.set_balance(int(_.bet) * 2)
                 sleep(1)
                 print(f'Выиграл ставку Дилер = {int(_.bet) * 2}  у {_.name} ,'
                       f'баланс = {dealer.get_balance()}')
@@ -190,7 +191,8 @@ class Game:
                 if _.type == 'h':
                     return 'game_over'
 
-        cprint(f"=========Закончилась {Game.iterations} раздача========\n", 'yellow')
+        cprint(f"=========Закончилась {Game.iterations} раздача========\n",
+               'yellow')
 
     def save_statistic(self):
         with open(c.FILE_NAME, 'a') as text_file:

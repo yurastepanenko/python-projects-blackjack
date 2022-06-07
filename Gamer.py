@@ -12,13 +12,13 @@ class Gamer:
 
     def __str__(self):
         return f'Игрока зовут {self.name}. У него {self.__money} денег! ' \
-               f'У него есть карты: {self.cards}' \
-               f'Сумма карт = {self.points}\n'
+               f'У него есть карты: {self.cards}.' \
+               f' Сумма карт = {self.points}\n'
 
     def __repr__(self):
         return f'Игрока зовут {self.name}. У него {self.__money} денег!(R) ' \
-               f'У него есть карты: {self.cards}'\
-               f'Сумма карт = {self.points}\n'
+               f'У него есть карты: {self.cards}.'\
+               f' Сумма карт = {self.points}\n'
 
     def get_balance(self):
         return int(self.__money)
